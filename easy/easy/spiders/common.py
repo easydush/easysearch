@@ -8,7 +8,7 @@ class CommonSpider(scrapy.Spider):
 
     def parse(self, response):
         urls = [link for link in response.selector.xpath('//a/@href').getall() if
-                not (str(link).startswith('#') or str(link).startswith('/'))]
+                not (str(link).startswith('#') or str(link).startswith('/') or 'moz.com' in str(link))]
         for num, url in enumerate(urls):
             logging.debug(f'{num} {url}')
             yield response.follow(url, callback=self.parse_url, meta={'num': num})
