@@ -1,6 +1,10 @@
-## task 1
 ### installation
     pip install -r .\requirements.txt
-### run
+
+## task 1
     cd easy
     scrapy crawl common
+
+## task 2
+    cd tokens
+    python tokenizer.py
