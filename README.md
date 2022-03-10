@@ -17,3 +17,7 @@
 ## task 4
     cd frequency
     python counter.py
+
+## task 5
+    cd search
+    python searcher.py
