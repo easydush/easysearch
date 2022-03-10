@@ -40,20 +40,43 @@ def scan_nltk_packages():
             nltk.download(package.split('/')[1])
 
 
-if __name__ == '__main__':
-    scan_nltk_packages()
-
+def get_tokens():
     tokens = set()
     for page in os.listdir('../pages'):
         with open(os.path.join('../pages', page), encoding='UTF-8') as f:
             tokens.update(set(tokenize(f.read())))
 
-    tokens = set(tokens)
+    return set(tokens)
 
+
+def get_lemmas(tokens):
+    return lemmatize(tokens)
+
+def get_lemmas_and_tokens():
+    lemmas = dict()
+    tokens = dict()
+    for page_number, page in enumerate(os.listdir('../pages')):
+        with open(os.path.join('../pages', page), encoding='UTF-8') as f:
+            t = list()
+            for paragraph in f.read():
+                t += tokenize(paragraph)
+
+            l = lemmatize(t)
+
+            lemmas[page_number] = l
+            tokens[page_number] = t
+
+    return lemmas, tokens
+
+
+if __name__ == '__main__':
+    scan_nltk_packages()
+
+    tokens = get_tokens()
     with open('./tokens.txt', mode='wt', encoding='utf-8') as file:
         file.write('\n'.join(tokens))
 
-    lemma_token = lemmatize(tokens)
+    lemma_token = get_lemmas(tokens)
     with open('./lemmas.txt', mode='at', encoding='utf-8') as file:
         for key, value in lemma_token.items():
             file.write(f'{key}: {value}\n')
