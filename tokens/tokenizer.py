@@ -3,7 +3,9 @@ import os.path
 import nltk
 from nltk import WordNetLemmatizer
 from nltk.corpus import stopwords
+import re
 
+pattern = re.compile("^[a-zA-Z]+$")
 NLTK_PACKAGES = ['tokenizers/punkt', 'corpora/stopwords', 'corpora/wordnet', 'corpora/omw-1.4']
 STOPWORDS = stopwords.words('english')
 
@@ -13,7 +15,7 @@ def tokenize(text):
 
     tokens += nltk.word_tokenize(text)
     lowered_tokens = [token.lower() for token in tokens]
-    return [item for item in lowered_tokens if item not in STOPWORDS]
+    return [item for item in lowered_tokens if item not in STOPWORDS and pattern.match(item)]
 
 
 def lemmatize(tokens):
