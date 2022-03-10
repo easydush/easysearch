@@ -8,3 +8,12 @@
 ## task 2
     cd tokens
     python tokenizer.py
+
+## task 3
+    cd index
+    python indexer.py
+    python searcher.py
+
+## task 4
+    cd frequency
+    python counter.py

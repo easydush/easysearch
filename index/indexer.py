@@ -12,7 +12,7 @@ STOPWORDS = stopwords.words('english')
 def get_paragraphs_dict():
     result = dict()
 
-    for i in range(1, 200):
+    for i in range(1, 500):
         try:
             with open(f'../pages/{i}.txt', 'rb') as file:
                 paragraphs = justext.justext(file.read(), justext.get_stoplist('English'))
@@ -37,8 +37,8 @@ def get_lemmas_and_tokens(paragraphs_dict):
         l = dict()
         t = list()
         for paragraph in paragraphs:
-            tokens = nltk.word_tokenize(paragraph)
-            lowered_tokens = [token.lower() for token in tokens]
+            p_tokens = nltk.word_tokenize(paragraph)
+            lowered_tokens = [token.lower() for token in p_tokens]
             t += [item for item in lowered_tokens if item not in STOPWORDS and pattern.match(item)]
 
         for token in t:
