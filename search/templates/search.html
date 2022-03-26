@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>My Webpage</title>
+</head>
+<body>
+<form method="POST" action=''>
+    <label for="query">Type your query</label>
+    <input id="query" type="search" name="query">
+    <button>Search</button>
+</form>
+{% if result %}
+<h3> Found:</h3>
+{% for item in result %}
+<p>{{ item }}</p>
+{% endfor %}
+{% else %}
+<p> search not found!!</p>
+{% endif %}
+</body>
+</html>

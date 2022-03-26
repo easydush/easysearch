@@ -8,11 +8,16 @@ from scipy import spatial
 
 pattern = re.compile("^[a-zA-Z]+$")
 STOPWORDS = stopwords.words('english')
-
+indexes = {}
 
 class Searcher:
     def __init__(self):
         self.lemmas, self.matrix = self.load_index()
+        with open('../index.txt') as ind:
+            items = ind.readlines()
+            for item in items:
+                key, value, other = item.split(' ')
+                indexes[key] = value
         nltk.download('punkt')
         nltk.download('stopwords')
         self.pymorphy2_analyzer = MorphAnalyzer()
@@ -57,8 +62,9 @@ class Searcher:
                 docs[idx + 1] = 0.0
 
         sorted_docs = sorted(docs.items(), key=lambda x: x[1], reverse=True)
-
-        return sorted_docs
+        print(indexes)
+        indexed_docs = [(indexes.get(str(doc[0])), doc) for doc in sorted_docs]
+        return indexed_docs
 
 
 if __name__ == '__main__':
